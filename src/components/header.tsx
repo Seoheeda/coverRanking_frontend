@@ -21,6 +21,7 @@ const Header: React.FC = () => {
 
   const onClickSignup = () => {
     navigate(`/signup`);
+    setIsMenuOpen(false);
   };
 
   const toggleMenu = () => {
@@ -93,7 +94,7 @@ const Header: React.FC = () => {
             value={searchQuery}
             onChange={handleSearchChange}
             onFocus={() => setIsRecentOpen(true)} 
-            className="pl-3 pr-10 border border-gray-2 rounded-2xl bg-gray h-10 w-full focus:outline-gray-2 mx-3 text-gray-600"
+            className="pl-3 pr-10 border border-gray-2 rounded-2xl bg-gray-1 h-10 w-full focus:outline-gray-2 mx-3 text-gray-600"
           />
           <IoSearch className="text-gray-500 text-2xl absolute right-0 top-2.5 cursor-pointer" onClick={handleSearchSubmit} />
           

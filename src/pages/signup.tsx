@@ -3,7 +3,7 @@ import SignupForm from '../components/signupForm.tsx';
 
 const Signup =  () => {
     return (
-        <div className='py-5 px-20'>
+        <div className='py-10'>
            <SignupForm/>
         </div>
     );
