@@ -6,6 +6,13 @@ import { IoSearch } from "react-icons/io5";
 
 const Header: React.FC = () => {
 
+  function identity<T>(value: T): T {
+    return value;
+  }
+  const output = identity('Hello');
+
+  console.log(typeof output);
+
   const navigate = useNavigate();
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);

@@ -2,19 +2,20 @@ import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import Profile from "../assets/imgs/profile.svg";
 import axios from "axios";
+import { GENRES } from '../utils/enum.tsx';
 
 const SignupForm = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState<string>("");
-  const [emailIschecked, setEmailIschecked] = useState<boolean>(false);
+  const [emailIschecked, setEmailIschecked] = useState<number>(0);
   const [password, setPassword] = useState<string>("1");
   const [pwdCheck, setPwdCheck] = useState<string>("");
   const [nickname, setNickname] = useState<string>("");
-  const [nicknameIschecked, setNicknameIschecked] = useState<boolean>(false);
+  const [nicknameIschecked, setNicknameIschecked] = useState<number>(0);
   const [age, setAge] = useState<number>(0);
   const [gender, setGender] = useState<number>(0);
-  const [preferredGenre, setPreferredGenre] = useState<Array<number>>([]);
+  const [preferredGenre, setPreferredGenre] = useState<string[]>([]);
   const [imgFile, setImgFile] = useState<string | ArrayBuffer | null>("");
 
   const genres = [
@@ -49,7 +50,9 @@ const SignupForm = () => {
       );
 
       if (response.data.isExist === "true") {
-        setEmailIschecked(true);
+        setEmailIschecked(1);
+      } else {
+        setEmailIschecked(2);
       }
     } catch (error) {
       alert("이메일 확인에 실패했습니다.");
@@ -85,10 +88,12 @@ const SignupForm = () => {
       );
 
       if (response.data.isExist === "true") {
-        setNicknameIschecked(true);
+        setNicknameIschecked(1);
+      } else {
+        setNicknameIschecked(2);
       }
     } catch (error) {
-      alert("이메일 확인에 실패했습니다.");
+      alert("닉네임 확인에 실패했습니다.");
       console.error(error);
     }
   };
@@ -116,12 +121,53 @@ const SignupForm = () => {
     }
   };
 
-  const toggleGenre = (index: number) => {
-    setPreferredGenre((prev) =>
-      prev.includes(index)
-        ? prev.filter((genreIndex) => genreIndex !== index)
-        : [...prev, index]
-    );
+
+const toggleGenre = (index: number) => {
+  console.log(preferredGenre);
+  const genre = GENRES[index]; // 해당 index에 맞는 genre 가져오기
+  setPreferredGenre((prev) =>
+    prev.includes(genre)
+      ? prev.filter((g) => g !== genre) // 이미 포함된 경우 제거
+      : [...prev, genre] // 포함되지 않은 경우 추가
+  );
+};
+
+  const submitForm = async () => {
+    // 모든 값이 입력되었는지 확인
+    if (!nickname || !email || !password || !age || !gender || !preferredGenre || !imgFile || emailIschecked === 2 || nicknameIschecked === 2) {
+      alert("정보를 다시 확인해주세요.");
+      return;
+    }
+    try {
+      const response = await axios.post(
+        "/members",
+        {
+          nickName: nickname,
+          email: email,
+          password: password,
+          nickname: nickname,
+          age: age,
+          gender: gender,
+          preferredGenre: preferredGenre,
+          image: imgFile,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+
+      if (response.data.isExist === "true") {
+        setNicknameIschecked(1);
+      } else {
+        setNicknameIschecked(2);
+      }
+    } catch (error) {
+      alert("닉네임 확인에 실패했습니다.");
+      console.error(error);
+    }
   };
 
   return (
@@ -131,15 +177,16 @@ const SignupForm = () => {
         <div className="flex-1 lg:pr-5">
           <div className="flex flex-row justify-between">
             <p className="mb-2 text-gray-500 font-semibold">이메일</p>
-            {emailIschecked ? (
+            {emailIschecked === 1 ? (
               <p className="mb-2 text-primary-1 text-[13px]">
                 사용 가능한 이메일입니다.
               </p>
-            ) : (
+            ) : null}
+            {emailIschecked === 2 ? (
               <p className="mb-2 text-red-500 text-[13px]">
                 * 이미 가입된 이메일입니다.
               </p>
-            )}
+            ) : null}
           </div>
           <div className="flex flex-row">
             <input
@@ -184,15 +231,16 @@ const SignupForm = () => {
         <div className="flex-1 lg:pl-5 mt-8 lg:mt-0">
           <div className="flex flex-row justify-between">
             <p className="mb-2 text-gray-500 font-semibold">닉네임</p>
-            {nicknameIschecked ? (
+            {nicknameIschecked === 1 ? (
               <p className="mb-2 text-primary-1 text-[13px]">
                 사용 가능한 닉네임입니다.
               </p>
-            ) : (
+            ) : null }
+            {nicknameIschecked === 2 ?(
               <p className="mb-2 text-red-500 text-[13px]">
                 * 닉네임을 사용할 수 없습니다.
               </p>
-            )}
+            ) : null}
           </div>{" "}
           <div className="flex flex-row">
             <input
@@ -266,7 +314,7 @@ const SignupForm = () => {
             <div
               key={index}
               className={`w-[80px] p-2 ml-1 mr-1 mb-2 text-sm text-center rounded-md cursor-pointer ${
-                preferredGenre.includes(index)
+                preferredGenre.includes(genres[index])
                   ? "bg-primary-2"
                   : "bg-white border border-gray-2"
               } text-gray-700`}
@@ -277,7 +325,10 @@ const SignupForm = () => {
           ))}
         </div>
       </div>
-      <div className="bg-primary-1 text-gray-700 p-2 w-full lg:w-80 text-center rounded-lg mt-10 self-center">
+      <div 
+        className="bg-primary-1 text-gray-700 p-2 w-full lg:w-80 text-center rounded-lg mt-10 self-center cursor-pointer"
+        onClick={submitForm}
+        >
         회원가입
       </div>
     </div>
