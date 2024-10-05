@@ -1,15 +1,35 @@
 import React, { useState, useRef, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
 import profile from "../assets/imgs/profile.svg";
 import notice from "../assets/imgs/notice.svg";
 import { IoSearch } from "react-icons/io5";
 
 const Header: React.FC = () => {
+
+  function identity<T>(value: T): T {
+    return value;
+  }
+  const output = identity('Hello');
+
+  console.log(typeof output);
+
+  const navigate = useNavigate();
+
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isRecentOpen, setIsRecentOpen] = useState(false); // 최근 검색어 창 상태
   const [recentSearches, setRecentSearches] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState("");
   const menuRef = useRef<HTMLDivElement | null>(null);
   const recentRef = useRef<HTMLDivElement | null>(null);
+
+  const onClickLogo = () => {
+    navigate(`/`);
+  };
+
+  const onClickSignup = () => {
+    navigate(`/signup`);
+    setIsMenuOpen(false);
+  };
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -72,7 +92,7 @@ const Header: React.FC = () => {
 
   return (
     <div className="px-5 h-20 w-full border-b border-gray-2 flex items-center justify-between">
-      <div className="text-primary-1 font-bold text-3xl">LOGO</div>
+      <div onClick={onClickLogo} className="text-primary-1 font-bold text-3xl cursor-pointer">LOGO</div>
       <div className="mr-5 relative flex-grow max-w-[500px]">
         <form onSubmit={handleSearchSubmit} className="relative">
           <input
@@ -81,7 +101,7 @@ const Header: React.FC = () => {
             value={searchQuery}
             onChange={handleSearchChange}
             onFocus={() => setIsRecentOpen(true)} 
-            className="pl-3 pr-10 border border-gray-2 rounded-2xl bg-gray h-10 w-full focus:outline-gray-2 mx-3 text-gray-600"
+            className="pl-3 pr-10 border border-gray-2 rounded-2xl bg-gray-1 h-10 w-full focus:outline-gray-2 mx-3 text-gray-600"
           />
           <IoSearch className="text-gray-500 text-2xl absolute right-0 top-2.5 cursor-pointer" onClick={handleSearchSubmit} />
           
@@ -104,8 +124,8 @@ const Header: React.FC = () => {
             ref={menuRef}
             className="flex-col border border-none rounded-md bg-gray-1 w-[7rem] h-[5rem] absolute top-7 right-10 flex items-center justify-center"
           >
-            <div className="pb-2">로그인</div>
-            <div>회원가입</div>
+            <div className="pb-2 cursor-pointer" >로그인</div>
+            <div className="cursor-pointer" onClick={onClickSignup}>회원가입</div>
           </div>}
         </div>
       </div>
