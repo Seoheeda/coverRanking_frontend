@@ -28,6 +28,7 @@ const SignupForm = () => {
     "R&B",
     "동요",
     "댄스",
+    "기타"
   ];
 
   const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,19 +123,20 @@ const SignupForm = () => {
   };
 
 
-const toggleGenre = (index: number) => {
-  console.log(preferredGenre);
-  const genre = GENRES[index]; // 해당 index에 맞는 genre 가져오기
-  setPreferredGenre((prev) =>
-    prev.includes(genre)
-      ? prev.filter((g) => g !== genre) // 이미 포함된 경우 제거
-      : [...prev, genre] // 포함되지 않은 경우 추가
-  );
-};
+  const toggleGenre = (index: number) => {
+    const genre = GENRES[index]; 
+    setPreferredGenre((prev) =>
+      prev.includes(genre)
+        ? prev.filter((g) => g !== genre) 
+        : [...prev, genre] 
+    );
+    console.log(preferredGenre);
+  };
+  
 
   const submitForm = async () => {
     // 모든 값이 입력되었는지 확인
-    if (!nickname || !email || !password || !age || !gender || !preferredGenre || !imgFile || emailIschecked === 2 || nicknameIschecked === 2) {
+    if (!nickname || !email || !password || !age || !gender || !preferredGenre || !imgFile || emailIschecked !== 1 || nicknameIschecked !== 1) {
       alert("정보를 다시 확인해주세요.");
       return;
     }
@@ -159,11 +161,10 @@ const toggleGenre = (index: number) => {
         }
       );
 
-      if (response.data.isExist === "true") {
-        setNicknameIschecked(1);
-      } else {
-        setNicknameIschecked(2);
-      }
+      console.log(response);
+      // 메인 페이지로 이동
+      navigate("/");
+
     } catch (error) {
       alert("닉네임 확인에 실패했습니다.");
       console.error(error);
@@ -171,11 +172,11 @@ const toggleGenre = (index: number) => {
   };
 
   return (
-    <div className="flex flex-col w-[70%] m-auto border-2 border-gray-200 rounded-2xl px-4 py-7 sm:px-8 md:px-12">
+    <div className="flex flex-col w-[70%] min-w-[250px] m-auto border-2 border-gray-200 rounded-2xl px-4 py-7 sm:px-8 md:px-12">
       <div className="text-xl font-medium mb-10 self-center">회원가입</div>
       <div className="w-full flex flex-col lg:flex-row">
         <div className="flex-1 lg:pr-5">
-          <div className="flex flex-row justify-between">
+          <div className="flex flex-row justify-between flex-wrap">
             <p className="mb-2 text-gray-500 font-semibold">이메일</p>
             {emailIschecked === 1 ? (
               <p className="mb-2 text-primary-1 text-[13px]">
@@ -208,7 +209,7 @@ const toggleGenre = (index: number) => {
               onChange={onChangePassword}
             />
           </div>
-          <div className="flex flex-row justify-between mt-7">
+          <div className="flex flex-row justify-between mt-7 flex-wrap">
             <p className="mb-2 text-gray-500 font-semibold">비밀번호 확인</p>
             {password === pwdCheck ? (
               <p className="mb-2 text-primary-1 text-[13px]">
@@ -254,7 +255,7 @@ const toggleGenre = (index: number) => {
               중복 확인
             </div>
           </div>
-          <div className="flex flex-col lg:flex-row lg:items-start mt-7">
+          <div className="flex flex-col lg:flex-row lg:items-start mt-7 ">
             <div className="flex-1">
               <p className="mb-2 text-gray-500 font-semibold">나이</p>
               <select
@@ -262,7 +263,7 @@ const toggleGenre = (index: number) => {
                 onChange={onChangeAge}
               >
                 <option value={0}>선택</option>
-                {Array.from({ length: 100 }, (_, i) => i + 1).map((age) => (
+                {Array.from({ length: 88 }, (_, i) => i + 12).map((age) => (
                   <option key={age} value={age}>
                     {age}
                   </option>
@@ -277,7 +278,7 @@ const toggleGenre = (index: number) => {
                   checked={gender === 0}
                   onChange={() => handleGenderChange(0)}
                 />
-                <div className="px-4 py-1 text-gray-700 ">남성</div>
+                <div className="px-4 py-1 min-w-10 text-gray-700 ">남성</div>
                 <input
                   type="radio"
                   name="gender"
@@ -287,42 +288,54 @@ const toggleGenre = (index: number) => {
                 <div className="px-4 py-1 text-gray-700">여성</div>
               </div>
             </div>
-            <div className="flex flex-col items-center lg:ml-16 mt-7 lg:mt-0">
+            <div className="flex flex-col items-center mr-8 pt-3 lg:mt-0">
               <img
                 src={imgFile ? (imgFile as string) : Profile}
                 alt="Profile"
                 className="w-24 h-24 rounded-full mb-6"
               />
+              {imgFile ? 
               <label className="min-w-[100px] cursor-pointer bg-primary-2 text-gray-700 py-1 px-2 text-xs text-center rounded-md">
-                이미지 업로드
-                <input
-                  type="file"
-                  accept="image/*"
-                  ref={imgRef}
-                  onChange={saveImgFile}
-                  className="hidden"
-                />
-              </label>
+              이미지 변경
+              <input
+                type="file"
+                accept="image/*"
+                ref={imgRef}
+                onChange={saveImgFile}
+                className="hidden"
+              />
+            </label> :
+             <label className="min-w-[100px] cursor-pointer bg-primary-2 text-gray-700 py-1 px-2 text-xs text-center rounded-md">
+             이미지 업로드
+             <input
+               type="file"
+               accept="image/*"
+               ref={imgRef}
+               onChange={saveImgFile}
+               className="hidden"
+             />
+           </label> }
             </div>
           </div>
         </div>
       </div>
-      <div className="flex flex-col mt-7">
+      <div className="flex flex-col mt-7 ">
         <p className="mb-2 text-gray-500 font-semibold">선호 장르</p>
-        <div className="flex flex-wrap flex-row justify-evenly">
-          {genres.map((genre, index) => (
-            <div
-              key={index}
-              className={`w-[80px] p-2 ml-1 mr-1 mb-2 text-sm text-center rounded-md cursor-pointer ${
-                preferredGenre.includes(genres[index])
-                  ? "bg-primary-2"
-                  : "bg-white border border-gray-2"
-              } text-gray-700`}
-              onClick={() => toggleGenre(index)}
-            >
-              {genre}
-            </div>
-          ))}
+        <div className="flex flex-wrap flex-row justify-center">
+        {genres.map((genre, index) => (
+          <div
+            key={index}
+            className={`w-[80px] p-2 ml-2 mr-2 mb-2 text-sm text-center rounded-md cursor-pointer ${
+              preferredGenre.includes(GENRES[index]) 
+                ? "bg-primary-2 border border-gray-2"
+                : "bg-white border border-gray-2"
+            } text-gray-700`}
+            onClick={() => toggleGenre(index)}
+          >
+            {genre}
+          </div>
+        ))}
+
         </div>
       </div>
       <div 

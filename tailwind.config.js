@@ -14,7 +14,10 @@ module.exports = {
           1: "#F0F0F0",
           2: "#D8D8D8",
         }
-      }
+      },
+      fontFamily: {
+        jamsil: ['"The Jamsil"', 'sans-serif'],
+      },
     },
   },
   plugins: [],
