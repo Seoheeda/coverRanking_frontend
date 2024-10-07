@@ -26,6 +26,11 @@ const Header: React.FC = () => {
     navigate(`/`);
   };
 
+  const onClickLogin = () => {
+    navigate(`/login`);
+    setIsMenuOpen(false);
+  };
+
   const onClickSignup = () => {
     navigate(`/signup`);
     setIsMenuOpen(false);
@@ -124,7 +129,7 @@ const Header: React.FC = () => {
             ref={menuRef}
             className="flex-col border border-none rounded-md bg-gray-1 w-[7rem] h-[5rem] absolute top-7 right-10 flex items-center justify-center"
           >
-            <div className="pb-2 cursor-pointer" >로그인</div>
+            <div className="pb-2 cursor-pointer" onClick={onClickLogin}>로그인</div>
             <div className="cursor-pointer" onClick={onClickSignup}>회원가입</div>
           </div>}
         </div>
