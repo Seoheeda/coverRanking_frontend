@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@font-face {
+    font-family: 'The Jamsil';
+    src: url('./assets/fonts/Pretendard-Regular.woff') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+  }
+  
+  /* Tailwind 기본 폰트 적용 */
+  @layer base {
+    body {
+      @apply font-jamsil;
+    }
+  }

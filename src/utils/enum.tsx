@@ -7,5 +7,6 @@ export const GENRES: string[] = [
     'ROCK',
     'RANDB',
     'CHILDREN',
-    'DANCE'
+    'DANCE',
+    'ETC',
 ];
