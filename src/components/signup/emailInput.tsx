@@ -56,7 +56,7 @@ const emailInput: React.FC<EmailInputProps> = ({
           onChange={(e) => setEmail(e.target.value)}
         />
         <div
-          className="w-[100px] min-w-[100px] bg-primary-2 text-gray-700 p-2 ml-2 text-sm text-center rounded-md cursor-pointer"
+          className="w-[100px] min-w-[100px] bg-primary-2 text-gray-700 p-2 ml-2 text-sm text-center rounded-md cursor-pointer hover:opacity-70"
           onClick={checkEmail}
         >
           중복 확인

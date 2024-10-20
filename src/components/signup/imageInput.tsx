@@ -40,7 +40,7 @@ const ImageInput: React.FC<ImageUploadProps> = ({ imgFile, setImgFile }) => {
           />
         </label>
       ) : (
-        <label className="min-w-[100px] cursor-pointer bg-primary-2 text-gray-700 py-1 px-2 text-xs text-center rounded-md">
+        <label className="min-w-[100px] cursor-pointer bg-primary-2 text-gray-700 py-1 px-2 text-xs text-center rounded-md hover:opacity-70">
           이미지 업로드
           <input
             type="file"

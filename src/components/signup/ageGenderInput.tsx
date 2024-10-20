@@ -14,30 +14,28 @@ const ageGenderInput: React.FC<AgeGenderInputProps> = ({
   setGender,
     }) => {
 
-    const onChangeAge = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        setAge(Number(e.target.value));
-        console.log(age);
+    const onChangeAge = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const today: Date = new Date();
+        const year: number = today.getFullYear();
+        const birth: Date = new Date(e.target.value);
+        const birthYear: number = birth.getFullYear();
+        const ageCal: number = year - birthYear + 1;
+        setAge(ageCal);
     };
 
-    const handleGenderChange = (value: number) => {
+    const onGenderChange = (value: number) => {
         console.log(gender);
         setGender(value);
     };
 
     return (
         <div className="flex-1 sm:flex flex-col mt-7">
-        <p className="mb-2 text-gray-500 font-semibold">나이</p>
-        <select
-                className="w-[50%] h-9 px-3 py-1 border border-gray-2 rounded-md focus:outline-gray-2 text-center text-gray-500"
-                onChange={onChangeAge}
-              >
-                <option value={0}>선택</option>
-                {Array.from({ length: 88 }, (_, i) => i + 12).map((age) => (
-                  <option key={age} value={age}>
-                    {age}
-                  </option>
-                ))}
-              </select>
+        <p className="mb-2 text-gray-500 font-semibold">생년월일</p>
+        <input
+            type="date"
+            className="w-[70%] border border-gray-2 h-9 px-3 rounded-md"
+            onChange={onChangeAge}
+        />
         <p className="mb-2 text-gray-500 font-semibold mt-7">성별</p>
         <div className="flex items-center">
             <input
@@ -45,14 +43,14 @@ const ageGenderInput: React.FC<AgeGenderInputProps> = ({
             name="gender"
             defaultChecked
             checked={gender === 0}
-            onChange={() => handleGenderChange(0)}
+            onChange={() => onGenderChange(0)}
             />
             <div className="px-4 py-1 min-w-10 text-gray-700 ">남성</div>
             <input
             type="radio"
             name="gender"
             checked={gender === 1}
-            onChange={() => handleGenderChange(1)}
+            onChange={() => onGenderChange(1)}
             />
             <div className="px-4 py-1 text-gray-700">여성</div>
         </div>

@@ -24,9 +24,13 @@ const passwordInput: React.FC<PasswordInputProps> = ({
       <div className="flex flex-row justify-between mt-7 flex-wrap">
         <p className="mb-2 text-gray-500 font-semibold">비밀번호 확인</p>
         {password === pwdCheck ? (
-          <p className="mb-2 text-primary-1 text-[13px]">비밀번호가 일치합니다.</p>
+          <p className="mb-2 text-primary-1 text-[13px]">
+            비밀번호가 일치합니다.
+          </p>
         ) : (
-          <p className="mb-2 text-red-500 text-[13px]">* 비밀번호가 일치하지 않습니다.</p>
+          <p className="mb-2 text-red-500 text-[13px]">
+            * 비밀번호가 일치하지 않습니다.
+          </p>
         )}
       </div>
       <input

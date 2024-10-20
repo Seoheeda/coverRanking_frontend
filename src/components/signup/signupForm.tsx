@@ -101,7 +101,7 @@ const SignupForm = () => {
         setPreferredGenre={setPreferredGenre}
       />
       <div
-        className="bg-primary-1 text-gray-700 p-2 w-full lg:w-80 text-center rounded-lg mt-10 self-center cursor-pointer"
+        className="bg-primary-1 text-gray-700 p-2 w-full lg:w-80 text-center rounded-lg mt-10 self-center cursor-pointer hover:opacity-90"
         onClick={submitForm}
       >
         회원가입
