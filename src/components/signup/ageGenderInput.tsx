@@ -7,7 +7,7 @@ interface AgeGenderInputProps {
   setGender: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const ageGenderInput: React.FC<AgeGenderInputProps> = ({
+const AgeGenderInput: React.FC<AgeGenderInputProps> = ({
   age,
   setAge,
   gender,
@@ -58,4 +58,4 @@ const ageGenderInput: React.FC<AgeGenderInputProps> = ({
     );
     };
 
-    export default ageGenderInput;
+    export default AgeGenderInput;

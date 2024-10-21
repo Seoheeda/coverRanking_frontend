@@ -6,7 +6,7 @@ interface GenreSelectorProps {
   setPreferredGenre: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
-const genreInput: React.FC<GenreSelectorProps> = ({
+const GenreInput: React.FC<GenreSelectorProps> = ({
   preferredGenre,
   setPreferredGenre,
 }) => {
@@ -43,4 +43,4 @@ const genreInput: React.FC<GenreSelectorProps> = ({
   );
 };
 
-export default genreInput;
+export default GenreInput;

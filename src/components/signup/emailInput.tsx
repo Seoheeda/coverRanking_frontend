@@ -8,7 +8,7 @@ interface EmailInputProps {
   emailIschecked: number;
 }
 
-const emailInput: React.FC<EmailInputProps> = ({
+const EmailInput: React.FC<EmailInputProps> = ({
   email,
   setEmail,
   setEmailIschecked,
@@ -58,4 +58,4 @@ const emailInput: React.FC<EmailInputProps> = ({
   );
 };
 
-export default emailInput;
+export default EmailInput;

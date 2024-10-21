@@ -8,7 +8,7 @@ interface NicknameInputProps {
   nicknameIschecked: number;
 }
 
-const nicknameInput: React.FC<NicknameInputProps> = ({
+const NicknameInput: React.FC<NicknameInputProps> = ({
   nickname,
   setNickname,
   setNicknameIschecked,
@@ -85,4 +85,4 @@ const nicknameInput: React.FC<NicknameInputProps> = ({
   );
 };
 
-export default nicknameInput;
+export default NicknameInput;

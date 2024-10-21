@@ -24,4 +24,4 @@ export const GENRES_KOR: string[] = [
     "기타"
 ];
 
-export const REGEX_PASS: string = "^(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()-+=<>?]).+$";
+export const REGEX_PASS = new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()-+=<>?]).{8,20}$");
