@@ -1,4 +1,4 @@
-import { REGEX_PASS } from "./enum";
+import { REGEX_PASS, REGEX_NICK } from "./enum";
 
 export const passwordRegexCheck = (password: string) => {
   
@@ -8,3 +8,13 @@ export const passwordRegexCheck = (password: string) => {
         return false;
     }
 }
+
+export const nicknameRegexCheck = (nickname: string) => {
+  
+    if (REGEX_NICK.test(nickname)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+

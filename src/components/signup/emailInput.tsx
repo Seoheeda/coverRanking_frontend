@@ -19,13 +19,11 @@ const EmailInput: React.FC<EmailInputProps> = ({
     try {
       const response = await checkEmail(email);
 
-      console.log(response);
-
-    //   if (response.isExist === "true") {
-    //     setEmailIschecked(1);
-    //   } else {
-    //     setEmailIschecked(2);
-    //   }
+      if (response.data === false) {
+        setEmailIschecked(1);
+      } else {
+        setEmailIschecked(2);
+      }
     } catch (error) {
       alert("이메일 확인에 실패했습니다.");
       console.error(error);

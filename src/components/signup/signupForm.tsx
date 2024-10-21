@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import EmailInput from "./emailInput";
@@ -7,6 +7,7 @@ import NicknameInput from "./nicknameInput";
 import AgeGenderInput from "./ageGenderInput";
 import GenreSelector from "./genreInput";
 import ImageUpload from "./imageInput";
+import { submitSignup } from "../../api/auth";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -20,11 +21,9 @@ const SignupForm = () => {
   const [age, setAge] = useState<number>(0);
   const [gender, setGender] = useState<number>(0);
   const [preferredGenre, setPreferredGenre] = useState<string[]>([]);
-  const [imgFile, setImgFile] = useState<string | ArrayBuffer | null>("");
+  const [imgFile, setImgFile] = useState<File | null>(null);
 
   const submitForm = async () => {
-    console.log(email);
-    console.log(gender);
     // 모든 값이 입력되었는지 확인
     if (
       !nickname ||
@@ -41,22 +40,14 @@ const SignupForm = () => {
       return;
     }
     try {
-      const response = await axios.post("/members", {
-        nickName: nickname,
-        email: email,
-        password: password,
-        age: age,
-        gender: gender,
-        preferredGenre: preferredGenre,
-        image: imgFile,
-      });
+      const response = await submitSignup(email, password, nickname, age, gender, preferredGenre, imgFile);
 
       console.log(response);
       // 메인 페이지로 이동
       navigate("/");
     } catch (error) {
       alert("회원가입에 실패했습니다.");
-      console.error(error);
+      console.log(error);
     }
   };
 

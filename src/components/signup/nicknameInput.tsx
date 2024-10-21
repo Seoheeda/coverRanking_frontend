@@ -1,5 +1,6 @@
 import React from "react";
 import { checkNickname } from "../../api/auth";
+import { nicknameRegexCheck } from "../../utils/methods";
 
 interface NicknameInputProps {
   nickname: string;
@@ -14,60 +15,43 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
   setNicknameIschecked,
   nicknameIschecked,
 }) => {
-
-
   const submitCheckNickname = async () => {
     try {
-      const response = await checkNickname(nickname);
+      if (nicknameRegexCheck(nickname)) {
+        const response = await checkNickname(nickname);
 
-      console.log(response);
+        console.log(response.data);
+        console.log(nickname);
 
-    //   if (response.isExist === "true") {
-    //     setEmailIschecked(1);
-    //   } else {
-    //     setEmailIschecked(2);
-    //   }
+        if (response.data.isExist === false) {
+          setNicknameIschecked(1);
+        } else {
+          setNicknameIschecked(2);
+        }
+      } else {
+        alert("닉네임은 2~15자로 설정해주세요.");
+      }
     } catch (error) {
       alert("이메일 확인에 실패했습니다.");
       console.error(error);
     }
   };
 
-  // const checkNickname = async () => {
-  //   try {
-  //     const response = await axios.post(
-  //       "/members/check-nickname",
-  //       {
-  //         nickName: nickname,
-  //       },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         withCredentials: true,
-  //       }
-  //     );
-
-  //     if (response.data.isExist === "true") {
-  //       setNicknameIschecked(1);
-  //     } else {
-  //       setNicknameIschecked(2);
-  //     }
-  //   } catch (error) {
-  //     alert("닉네임 확인에 실패했습니다.");
-  //     console.error(error);
-  //   }
-  // };
-
   return (
-    <div className="flex flex-col">
-      <p className="mb-2 text-gray-500 font-semibold">닉네임</p>
-      {nicknameIschecked === 1 && (
-        <p className="mb-2 text-primary-1 text-[13px]">사용 가능한 닉네임입니다.</p>
-      )}
-      {nicknameIschecked === 2 && (
-        <p className="mb-2 text-red-500 text-[13px]">* 닉네임을 사용할 수 없습니다.</p>
-      )}
+    <div>
+      <div className="flex flex-row justify-between flex-wrap">
+        <p className="mb-2 text-gray-500 font-semibold">닉네임</p>
+        {nicknameIschecked === 1 && (
+          <p className="mb-2 text-primary-1 text-[13px]">
+            사용 가능한 닉네임입니다.
+          </p>
+        )}
+        {nicknameIschecked === 2 && (
+          <p className="mb-2 text-red-500 text-[13px]">
+            * 닉네임을 사용할 수 없습니다.
+          </p>
+        )}
+      </div>
       <div className="flex flex-row">
         <input
           className="w-full h-9 px-3 bg-gray-1 border border-gray-2 rounded-md focus:outline-gray-2"

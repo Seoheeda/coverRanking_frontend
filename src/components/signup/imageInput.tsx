@@ -1,22 +1,24 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
 import Profile from "../../assets/imgs/profile.svg";
 
 interface ImageUploadProps {
-  imgFile: string | ArrayBuffer | null;
-  setImgFile: React.Dispatch<React.SetStateAction<string | ArrayBuffer | null>>;
+  imgFile: File | null;
+  setImgFile: React.Dispatch<React.SetStateAction<File | null>>;
 }
 
 const ImageInput: React.FC<ImageUploadProps> = ({ imgFile, setImgFile }) => {
   const imgRef = useRef<HTMLInputElement | null>(null);
+  const [previewImg, setPreviewImg] = useState<string | null>(null);
 
   const saveImgFile = () => {
     if (imgRef.current && imgRef.current.files) {
       const file = imgRef.current.files[0];
+      setImgFile(file); 
+      
       const reader = new FileReader();
       reader.readAsDataURL(file);
-
       reader.onloadend = () => {
-        setImgFile(reader.result);
+        setPreviewImg(reader.result as string);
       };
     }
   };
@@ -24,7 +26,7 @@ const ImageInput: React.FC<ImageUploadProps> = ({ imgFile, setImgFile }) => {
   return (
     <div className="flex flex-col items-center justify-center lg:mr-8 md:mr-8 pt-10">
       <img
-        src={imgFile ? (imgFile as string) : Profile}
+        src={previewImg ? previewImg : Profile}
         alt="Profile"
         className="w-24 h-24 rounded-full mb-6"
       />

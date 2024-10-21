@@ -25,3 +25,10 @@ export const GENRES_KOR: string[] = [
 ];
 
 export const REGEX_PASS = new RegExp("^(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()-+=<>?]).{8,20}$");
+
+export const REGEX_NICK = new RegExp("^[^\\s]{2,15}$");
+
+export const GENDER: string[] = [
+    "MALE",
+    "FEMALE",
+];
