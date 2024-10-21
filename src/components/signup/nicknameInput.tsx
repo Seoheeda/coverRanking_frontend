@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { checkNickname } from "../../api/auth.ts";
 
 interface NicknameInputProps {
   nickname: string;
@@ -14,31 +14,50 @@ const nicknameInput: React.FC<NicknameInputProps> = ({
   setNicknameIschecked,
   nicknameIschecked,
 }) => {
-  const checkNickname = async () => {
-    try {
-      const response = await axios.post(
-        "/members/check-nickname",
-        {
-          nickName: nickname,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
 
-      if (response.data.isExist === "true") {
-        setNicknameIschecked(1);
-      } else {
-        setNicknameIschecked(2);
-      }
+
+  const submitCheckNickname = async () => {
+    try {
+      const response = await checkNickname(nickname);
+
+      console.log(response);
+
+    //   if (response.isExist === "true") {
+    //     setEmailIschecked(1);
+    //   } else {
+    //     setEmailIschecked(2);
+    //   }
     } catch (error) {
-      alert("닉네임 확인에 실패했습니다.");
+      alert("이메일 확인에 실패했습니다.");
       console.error(error);
     }
   };
+
+  // const checkNickname = async () => {
+  //   try {
+  //     const response = await axios.post(
+  //       "/members/check-nickname",
+  //       {
+  //         nickName: nickname,
+  //       },
+  //       {
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         withCredentials: true,
+  //       }
+  //     );
+
+  //     if (response.data.isExist === "true") {
+  //       setNicknameIschecked(1);
+  //     } else {
+  //       setNicknameIschecked(2);
+  //     }
+  //   } catch (error) {
+  //     alert("닉네임 확인에 실패했습니다.");
+  //     console.error(error);
+  //   }
+  // };
 
   return (
     <div className="flex flex-col">
@@ -57,7 +76,7 @@ const nicknameInput: React.FC<NicknameInputProps> = ({
         />
         <div
           className="w-[100px] min-w-[100px] bg-primary-2 text-gray-700 p-2 ml-2 text-sm text-center rounded-md cursor-pointer hover:opacity-70"
-          onClick={checkNickname}
+          onClick={submitCheckNickname}
         >
           중복 확인
         </div>

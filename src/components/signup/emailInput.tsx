@@ -1,5 +1,5 @@
 import React from "react";
-import axios from "axios";
+import { checkEmail } from "../../api/auth.ts";
 
 interface EmailInputProps {
   email: string;
@@ -14,26 +14,18 @@ const emailInput: React.FC<EmailInputProps> = ({
   setEmailIschecked,
   emailIschecked,
 }) => {
-  const checkEmail = async () => {
-    try {
-      const response = await axios.post(
-        "/members/check-email",
-        {
-          email: email,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
 
-      if (response.data.isExist === "true") {
-        setEmailIschecked(1);
-      } else {
-        setEmailIschecked(2);
-      }
+  const submitCheckEmail = async () => {
+    try {
+      const response = await checkEmail(email);
+
+      console.log(response);
+
+    //   if (response.isExist === "true") {
+    //     setEmailIschecked(1);
+    //   } else {
+    //     setEmailIschecked(2);
+    //   }
     } catch (error) {
       alert("이메일 확인에 실패했습니다.");
       console.error(error);
@@ -57,7 +49,7 @@ const emailInput: React.FC<EmailInputProps> = ({
         />
         <div
           className="w-[100px] min-w-[100px] bg-primary-2 text-gray-700 p-2 ml-2 text-sm text-center rounded-md cursor-pointer hover:opacity-70"
-          onClick={checkEmail}
+          onClick={submitCheckEmail}
         >
           중복 확인
         </div>

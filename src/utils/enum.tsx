@@ -22,4 +22,6 @@ export const GENRES_KOR: string[] = [
     "동요",
     "댄스",
     "기타"
-  ];
+];
+
+export const REGEX_PASS: string = "^(?=.*[a-z])(?=.*\\d)(?=.*[!@#$%^&*()-+=<>?]).+$";
