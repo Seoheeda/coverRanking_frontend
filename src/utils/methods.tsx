@@ -1,4 +1,4 @@
-import { REGEX_PASS } from "./enum.tsx";
+import { REGEX_PASS } from "./enum";
 
 export const passwordRegexCheck = (password: string) => {
   

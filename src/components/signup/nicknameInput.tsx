@@ -1,5 +1,5 @@
 import React from "react";
-import { checkNickname } from "../../api/auth.ts";
+import { checkNickname } from "../../api/auth";
 
 interface NicknameInputProps {
   nickname: string;

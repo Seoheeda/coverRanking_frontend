@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import { passwordRegexCheck } from "../../utils/methods.tsx";
+import { passwordRegexCheck } from "../../utils/methods";
 
 interface PasswordInputProps {
   password: string;

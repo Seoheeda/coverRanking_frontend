@@ -1,5 +1,5 @@
 import React from "react";
-import { GENRES, GENRES_KOR } from "../../utils/enum.tsx";
+import { GENRES, GENRES_KOR } from "../../utils/enum";
 
 interface GenreSelectorProps {
   preferredGenre: string[];

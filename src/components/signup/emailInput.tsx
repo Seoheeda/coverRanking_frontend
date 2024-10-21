@@ -1,5 +1,5 @@
 import React from "react";
-import { checkEmail } from "../../api/auth.ts";
+import { checkEmail } from "../../api/auth";
 
 interface EmailInputProps {
   email: string;
