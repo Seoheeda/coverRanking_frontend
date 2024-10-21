@@ -1,4 +1,4 @@
-import { httpClient } from "./http.ts";
+import { httpClient } from "./http";
 
 export const checkEmail = async (email: string) => {
     const data = await httpClient.post(`/members/check-email`, {

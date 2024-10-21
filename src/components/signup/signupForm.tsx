@@ -1,12 +1,12 @@
 import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import EmailInput from "./emailInput.tsx";
-import PasswordInput from "./passwordInput.tsx";
-import NicknameInput from "./nicknameInput.tsx";
-import AgeGenderInput from "./ageGenderInput.tsx";
-import GenreSelector from "./genreInput.tsx";
-import ImageUpload from "./imageInput.tsx";
+import EmailInput from "./emailInput";
+import PasswordInput from "./passwordInput";
+import NicknameInput from "./nicknameInput";
+import AgeGenderInput from "./ageGenderInput";
+import GenreSelector from "./genreInput";
+import ImageUpload from "./imageInput";
 
 const SignupForm = () => {
   const navigate = useNavigate();
