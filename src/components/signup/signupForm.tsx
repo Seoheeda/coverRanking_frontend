@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 import EmailInput from "./emailInput";
 import PasswordInput from "./passwordInput";
 import NicknameInput from "./nicknameInput";
@@ -8,6 +7,7 @@ import AgeGenderInput from "./ageGenderInput";
 import GenreSelector from "./genreInput";
 import ImageUpload from "./imageInput";
 import { submitSignup } from "../../api/auth";
+import { GENDER } from "../../utils/enum";
 
 const SignupForm = () => {
   const navigate = useNavigate();
@@ -30,7 +30,7 @@ const SignupForm = () => {
       !email ||
       !password ||
       !age ||
-      !gender ||
+      !GENDER[gender] ||
       !preferredGenre ||
       !imgFile ||
       emailIschecked !== 1 ||

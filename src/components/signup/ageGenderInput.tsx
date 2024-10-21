@@ -24,7 +24,6 @@ const AgeGenderInput: React.FC<AgeGenderInputProps> = ({
     };
 
     const onGenderChange = (value: number) => {
-        console.log(gender);
         setGender(value);
     };
 

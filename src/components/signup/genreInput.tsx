@@ -17,7 +17,6 @@ const GenreInput: React.FC<GenreSelectorProps> = ({
             ? prev.filter((g) => g !== genre) 
             : [...prev, genre] 
         );
-        console.log(preferredGenre);
       };
 
   return (

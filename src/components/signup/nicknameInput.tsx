@@ -21,7 +21,6 @@ const NicknameInput: React.FC<NicknameInputProps> = ({
         const response = await checkNickname(nickname);
 
         console.log(response.data);
-        console.log(nickname);
 
         if (response.data.isExist === false) {
           setNicknameIschecked(1);

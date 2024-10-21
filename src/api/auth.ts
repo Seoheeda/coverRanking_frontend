@@ -32,14 +32,9 @@ export const submitSignup = async (email: string, password: string, nickname: st
     formData.append('member', new Blob([JSON.stringify(member)], { type: 'application/json' }));
      
     if (imgFile) {
-        console.log(imgFile);
         formData.append('image', imgFile); 
     }
 
-    for (const [key, value] of formData.entries()) {
-        console.log(key, value);
-    }    
-    
     const data = await httpClient.post(`/members`, formData);
 
     return data;

@@ -31,14 +31,17 @@ const EmailInput: React.FC<EmailInputProps> = ({
   };
 
   return (
-    <div className="flex flex-col">
-      <p className="mb-2 text-gray-500 font-semibold">이메일</p>
-      {emailIschecked === 1 && (
-        <p className="mb-2 text-primary-1 text-[13px]">사용 가능한 이메일입니다.</p>
-      )}
-      {emailIschecked === 2 && (
-        <p className="mb-2 text-red-500 text-[13px]">* 이미 가입된 이메일입니다.</p>
-      )}
+    <div>
+      <div className="flex flex-row justify-between flex-wrap">
+        <p className="mb-2 text-gray-500 font-semibold">이메일</p>
+        {emailIschecked === 1 && (
+          <p className="mb-2 text-primary-1 text-[13px]">사용 가능한 이메일입니다.</p>
+        )}
+        {emailIschecked === 2 && (
+          <p className="mb-2 text-red-500 text-[13px]">* 이미 가입된 이메일입니다.</p>
+        )}
+      </div>
+
       <div className="flex flex-row">
         <input
           className="w-full h-9 px-3 bg-gray-1 border border-gray-2 rounded-md focus:outline-gray-2"
